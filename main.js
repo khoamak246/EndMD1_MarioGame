@@ -108,10 +108,6 @@ function animate() {
             reset();
         } else {
             cancelAnimationFrame(start)
-            window.setTimeout(function () {
-                document.querySelector("html").style.cursor = "url(\"Img/gameCusor.png\"),auto"
-            }, 3500)
-            // document.querySelector("html").style.cursor = "url(\"Img/gameCusor.png\"),auto"
             loseEvent();
         }
     }

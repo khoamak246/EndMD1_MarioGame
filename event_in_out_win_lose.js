@@ -94,26 +94,24 @@ function startGame() {
 
 //Lose Game
 let radius = 0;
-
+let radiusIncrease = 15;
 function fillArcCanvas() {
+    let id = requestAnimationFrame(fillArcCanvas)
     if (radius <= canvas.height + 100) {
-        requestAnimationFrame(fillArcCanvas)
+        radius = radius + radiusIncrease;
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, canvas.width, canvas.height)
-        let radiusIncrease = 15;
-        radius = radius + radiusIncrease;
         ctx.fillStyle = "#393835";
         ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, 2 * Math.PI, true)
         ctx.fill();
     } else {
-        ctx.fillStyle = "#393835";
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        cancelAnimationFrame(id);
+        radius=0;
     }
 }
 
 function loseEvent() {
     fillArcCanvas()
-
     const overMenuBoard = new Image();
     overMenuBoard.src = 'Img/menuBoard.png'
     overMenuBoard.onload = function () {
@@ -132,16 +130,6 @@ function loseEvent() {
     restartButton.src = 'Img/restartButton.png'
     restartButton.className = "button"
     restartButton.id = "restartBtn"
-    addEventButton(restartButton);
-    restartButton.addEventListener('click', function () {
-        checkLose = 3;
-        scrollOffset = 0;
-        reset_npc_character()
-        reset();
-        animate();
-        hideButton();
-        document.querySelector("html").style.cursor = "none";
-    })
     restartButton.onload = function () {
         setTimeout(createButton, 2500, restartButton);
     }
@@ -154,10 +142,28 @@ function loseEvent() {
     homepageButton.addEventListener('click', function () {
         hideButton();
         checkLose = 4;
+        scrollOffset = 0;
+        reset_npc_character()
+        reset();
         startGame();
     })
     homepageButton.onload = function () {
         setTimeout(createButton, 3000, homepageButton);
+        setTimeout(function () {
+            document.querySelector("html").style.cursor = "url(\"Img/gameCusor.png\"),auto"
+        },3000)
+        setTimeout(function () {
+            addEventButton(restartButton);
+            restartButton.addEventListener('click', function () {
+                checkLose = 3;
+                scrollOffset = 0;
+                reset_npc_character()
+                reset();
+                animate();
+                hideButton();
+                document.querySelector("html").style.cursor = "none";
+            })
+        },3000);
     }
 }
 
