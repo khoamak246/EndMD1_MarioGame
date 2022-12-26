@@ -28,7 +28,9 @@ function addEventButton(button) {
 }
 
 // Start Game
+let checkSpam;
 function startGame() {
+    checkSpam = true;
     const menuBackground = new Image();
     menuBackground.src = 'Img/menuBackground.jpg'
     menuBackground.onload = function () {
@@ -77,11 +79,14 @@ function startGame() {
     aboutBtn.onload = function () {
         setTimeout(createButton, 3000, aboutBtn);
         startBtn.addEventListener('click', function () {
-            setTimeout(animate, 1000)
-            setTimeout(hideButton, 1000)
-            window.setTimeout(function () {
-                document.querySelector("html").style.cursor = "none"
-            }, 1000)
+            if (checkSpam) {
+                setTimeout(animate, 1000)
+                setTimeout(hideButton, 1000)
+                window.setTimeout(function () {
+                    document.querySelector("html").style.cursor = "none"
+                }, 1000)
+            }
+            checkSpam = false;
         })
     }
     addEventButton(aboutBtn);
