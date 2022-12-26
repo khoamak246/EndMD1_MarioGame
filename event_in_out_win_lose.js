@@ -243,16 +243,18 @@ function winContent() {
     homepageWin.className = "button"
     homepageWin.id = "homepageWin"
     addEventButton(homepageWin);
-    homepageWin.addEventListener('click', function () {
-        hideButton();
-        checkLose = 3;
-        scrollOffset = 0;
-        reset_npc_character()
-        reset();
-        startGame();
-    })
     homepageWin.onload = function () {
         setTimeout(createButton, 3000, homepageWin)
+        setTimeout(function () {
+            homepageWin.addEventListener('click', function () {
+                hideButton();
+                checkLose = 3;
+                scrollOffset = 0;
+                reset_npc_character()
+                reset();
+                startGame();
+            })
+        },3500)
     }
     opacity = 0;
     countFire = 0;
